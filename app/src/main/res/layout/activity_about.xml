@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/infoContainer"
+        android:_id="@+_id/infoContainer"
         android:visibility="gone"
         android:orientation="vertical">
 
@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/companyName"
+                android:_id="@+_id/companyName"
                 tools:text="Backbase" />
 
         </LinearLayout>
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/companyAdress"
+                android:_id="@+_id/companyAdress"
                 tools:text="Backbase" />
 
         </LinearLayout>
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/companyCity"
+                android:_id="@+_id/companyCity"
                 tools:text="Backbase" />
 
         </LinearLayout>
@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/companypostal"
+                android:_id="@+_id/companypostal"
                 tools:text="Backbase" />
 
         </LinearLayout>
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/aboutInfo"
+                android:_id="@+_id/aboutInfo"
                 tools:text="Backbase" />
 
         </LinearLayout>
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:id="@+id/progressBar"/>
+        android:_id="@+_id/progressBar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
         android:visibility="gone"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_centerInParent="true"
-        android:id="@+id/errorView"/>
+        android:_id="@+_id/errorView"/>
 
 
 </RelativeLayout>
