@@ -14,7 +14,7 @@ import eva.interview.backbase.cities.CitiesPresenterImpl;
 import eva.interview.backbase.cities.City;
 import eva.interview.backbase.cities.ui.fragment.ListFragment;
 
-public class CitiesActivity  extends AppCompatActivity implements Cities.View {
+public class CitiesActivity extends AppCompatActivity implements Cities.View {
 
     private ListFragment listFragment;
     private Cities.Presenter presenter;
@@ -24,8 +24,14 @@ public class CitiesActivity  extends AppCompatActivity implements Cities.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
         listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.listFragment);
-        presenter = new CitiesPresenterImpl(this, getApplicationContext());
-        presenter.filterCity("");
+        if (savedInstanceState == null) {
+            presenter = new CitiesPresenterImpl(this, getApplicationContext());
+            presenter.filterCity("");
+        } else {
+            presenter = (Cities.Presenter) getLastCustomNonConfigurationInstance();
+            presenter.changeView(this);
+        }
+
         listFragment.setSearchListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -42,6 +48,11 @@ public class CitiesActivity  extends AppCompatActivity implements Cities.View {
 
             }
         });
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter;
     }
 
     @Override

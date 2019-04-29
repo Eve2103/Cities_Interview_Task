@@ -31,4 +31,9 @@ public class CitiesPresenterImpl implements Cities.Presenter {
     public void onLoading() {
         view.showLoading();
     }
+
+    @Override
+    public void changeView(Cities.View view) {
+        this.view = view;
+    }
 }

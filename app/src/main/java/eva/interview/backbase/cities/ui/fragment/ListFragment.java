@@ -43,6 +43,7 @@ public class ListFragment extends Fragment {
         citiesAdapter = new CitiesAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(citiesAdapter);
+        editText.setEnabled(false);
     }
 
     public void showList(List<City> cities){
@@ -53,7 +54,6 @@ public class ListFragment extends Fragment {
 
     public void showLoading(){
         progressBar.setVisibility(View.VISIBLE);
-        editText.setEnabled(false);
     }
 
     public void setSearchListener(TextWatcher textWatcher) {

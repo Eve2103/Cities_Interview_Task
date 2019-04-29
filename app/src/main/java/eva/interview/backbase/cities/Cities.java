@@ -2,6 +2,8 @@ package eva.interview.backbase.cities;
 
 import java.util.List;
 
+import eva.interview.backbase.cities.ui.CitiesActivity;
+
 //Using mvp architecture but i personally prefer mvvm.
 public interface Cities {
 
@@ -17,6 +19,8 @@ public interface Cities {
         void onCitiesLoaded(List<City> cities);
 
         void onLoading();
+
+        void changeView(View view);
     }
 
     interface View {
