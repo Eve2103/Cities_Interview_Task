@@ -17,6 +17,7 @@
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/nameText"
         android:layout_width="match_parent"
@@ -24,11 +25,14 @@
         android:layout_margin="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-
     <TextView
         android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999"/>
 </LinearLayout>

@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <fragment
         android:id="@+id/listFragment"
         android:name="eva.interview.backbase.cities.ui.fragment.ListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3" />
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="eva.interview.backbase.cities.ui.fragment.MapFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="0.7"
         android:visibility="invisible" />
 
-</FrameLayout>
+</LinearLayout>

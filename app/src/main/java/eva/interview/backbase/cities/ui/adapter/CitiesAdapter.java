@@ -17,6 +17,9 @@ import eva.interview.backbase.cities.City;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHolder> {
 
     private List<City> cityList = new ArrayList<>();
+    private CitySelectedListener listener;
+    private int selectedItemPosition = -1;
+    private City selectedCity;
 
     @NonNull
     @Override
@@ -36,24 +39,50 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHo
 
     public void setCityList(List<City> cities) {
         cityList = new ArrayList<>(cities);
+        selectedItemPosition = cityList.indexOf(selectedCity);
         notifyDataSetChanged();
+    }
+
+    public void setCitySelectedListener(CitySelectedListener listener){
+        this.listener = listener;
+    }
+
+    public void setSelectedCity(City city) {
+        selectedCity = city;
     }
 
     class CityViewHolder extends RecyclerView.ViewHolder {
 
+        private View root;
         private TextView titleTextView;
         private TextView locationTextView;
 
         CityViewHolder(@NonNull final View itemView) {
             super(itemView);
+
+            root = itemView;
             titleTextView = itemView.findViewById(R.id.nameText);
             locationTextView = itemView.findViewById(R.id.locationText);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        notifyItemChanged(selectedItemPosition);
+                        selectedItemPosition = -1;
+                        listener.onCitySelected(cityList.get(getAdapterPosition()));
+                        selectedItemPosition = getAdapterPosition();
+                        notifyItemChanged(selectedItemPosition);
+                    }
+                }
+            });
         }
 
         void bind(final City cityInfo) {
             titleTextView.setText(cityInfo.getName() + ", " + cityInfo.getCountry());
             String loc = "Lat: " + cityInfo.getCoord().getLat() + " Lon: " + cityInfo.getCoord().getLon(); //Todo
             locationTextView.setText(loc);
+            root.setBackgroundColor(selectedItemPosition == getAdapterPosition() ? Color.LTGRAY : Color.WHITE);
         }
     }
 

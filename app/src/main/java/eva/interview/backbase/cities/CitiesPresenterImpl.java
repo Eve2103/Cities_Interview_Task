@@ -8,6 +8,7 @@ public class CitiesPresenterImpl implements Cities.Presenter {
 
     private Cities.View view;
     private Cities.Model model;
+    private City selectedCity;
 
     public CitiesPresenterImpl(Cities.View view, Context context) {
         this.view = view;
@@ -35,5 +36,15 @@ public class CitiesPresenterImpl implements Cities.Presenter {
     @Override
     public void changeView(Cities.View view) {
         this.view = view;
+    }
+
+    @Override
+    public City getSelectedCity() {
+        return selectedCity;
+    }
+
+    @Override
+    public void setSelectedCity(City city) {
+        selectedCity = city;
     }
 }

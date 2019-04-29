@@ -17,8 +17,8 @@ import java.util.List;
 
 import eva.interview.backbase.R;
 import eva.interview.backbase.cities.City;
-import eva.interview.backbase.cities.ui.CitiesActivity;
 import eva.interview.backbase.cities.ui.adapter.CitiesAdapter;
+import eva.interview.backbase.cities.ui.adapter.CitySelectedListener;
 
 public class ListFragment extends Fragment {
 
@@ -58,5 +58,13 @@ public class ListFragment extends Fragment {
 
     public void setSearchListener(TextWatcher textWatcher) {
         editText.addTextChangedListener(textWatcher);
+    }
+
+    public void setSelectedCityListener(CitySelectedListener listener){
+        citiesAdapter.setCitySelectedListener(listener);
+    }
+
+    public void setSelectedCity(City selectedCity) {
+        citiesAdapter.setSelectedCity(selectedCity);
     }
 }
