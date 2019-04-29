@@ -61,15 +61,15 @@ public class CitiesModelImpl implements Cities.Model {
                     post(new ArrayList<>(cities.values()));
                     return;
                 }
-                char lastNextChar = name.toCharArray()[name.length() - 1]++;
-                post(new ArrayList<>(cities.subMap(name, name.substring(0, name.length() - 2) + lastNextChar).values()));
+                char lastNextChar = ++name.toCharArray()[name.length() - 1];
+                post(new ArrayList<>(cities.subMap(name, name.substring(0, name.length() - 1) + lastNextChar).values()));
             }
         });
     }
 
     @Override
     public void getAllCities() {
-        post(new ArrayList<>(cities.values()));
+        filterCities(null);
     }
 
     private TreeMap<String, City> loadCitiesFromAssets() {

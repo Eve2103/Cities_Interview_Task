@@ -4,19 +4,22 @@ import android.content.Context;
 
 import java.util.List;
 
-public class CitiesPresenterImpl implements Cities.Presenter{
+public class CitiesPresenterImpl implements Cities.Presenter {
 
     private Cities.View view;
     private Cities.Model model;
 
-    public CitiesPresenterImpl(Cities.View view, Context context){
+    public CitiesPresenterImpl(Cities.View view, Context context) {
         this.view = view;
         this.model = new CitiesModelImpl(this, context);
     }
 
     @Override
     public void filterCity(String query) {
-        model.filterCities(query);
+        if (query == null || query.isEmpty())
+            model.getAllCities();
+        else
+            model.filterCities(query);
     }
 
     @Override

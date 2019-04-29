@@ -2,7 +2,7 @@ package eva.interview.backbase.cities;
 
 import java.io.Serializable;
 
-class City implements Serializable {
+public class City implements Serializable {
 
     private String country;
     private String name;
