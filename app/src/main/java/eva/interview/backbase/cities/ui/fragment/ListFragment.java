@@ -1,5 +1,6 @@
 package eva.interview.backbase.cities.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import eva.interview.backbase.R;
+import eva.interview.backbase.about.AboutActivity;
 import eva.interview.backbase.cities.City;
 import eva.interview.backbase.cities.ui.adapter.CitiesAdapter;
 import eva.interview.backbase.cities.ui.adapter.CitySelectedListener;
@@ -44,6 +46,13 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(citiesAdapter);
         editText.setEnabled(false);
+
+        citiesAdapter.setInfoClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
     }
 
     public void showList(List<City> cities){

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,7 +18,10 @@ import eva.interview.backbase.cities.City;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHolder> {
 
     private List<City> cityList = new ArrayList<>();
+
     private CitySelectedListener listener;
+    private View.OnClickListener infoClickListener;
+
     private int selectedItemPosition = -1;
     private City selectedCity;
 
@@ -43,8 +47,12 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHo
         notifyDataSetChanged();
     }
 
-    public void setCitySelectedListener(CitySelectedListener listener){
+    public void setCitySelectedListener(CitySelectedListener listener) {
         this.listener = listener;
+    }
+
+    public void setInfoClickListener(View.OnClickListener listener) {
+        infoClickListener = listener;
     }
 
     public void setSelectedCity(City city) {
@@ -56,6 +64,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHo
         private View root;
         private TextView titleTextView;
         private TextView locationTextView;
+        private Button infoBtn;
 
         CityViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -63,6 +72,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHo
             root = itemView;
             titleTextView = itemView.findViewById(R.id.nameText);
             locationTextView = itemView.findViewById(R.id.locationText);
+            infoBtn = itemView.findViewById(R.id.infoBtn);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +86,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CityViewHo
                     }
                 }
             });
+            if (infoClickListener != null)
+                infoBtn.setOnClickListener(infoClickListener);
         }
 
         void bind(final City cityInfo) {
