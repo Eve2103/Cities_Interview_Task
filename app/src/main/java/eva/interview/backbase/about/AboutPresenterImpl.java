@@ -1,10 +1,10 @@
 package eva.interview.backbase.about;
 
-import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
+
+import eva.interview.backbase.util.asset.AssetRetriever;
 
 /**
  * Created by Backbase R&D B.V on 28/06/2018.
@@ -15,9 +15,9 @@ public class AboutPresenterImpl implements About.Presenter {
     private final WeakReference<About.View> aboutView;
     private final AboutModelImpl aboutModel;
 
-    public AboutPresenterImpl(About.View view, @NonNull Context context){
+    public AboutPresenterImpl(About.View view){
         this.aboutView = new WeakReference<>(view);
-        this.aboutModel = new AboutModelImpl(this, context);
+        this.aboutModel = new AboutModelImpl(this, AssetRetriever.getInstance());
     }
 
     @Override

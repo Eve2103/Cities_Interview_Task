@@ -33,7 +33,7 @@ public class CitiesActivity extends AppCompatActivity implements Cities.View {
         mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
         if (savedInstanceState == null) {
-            presenter = new CitiesPresenterImpl(this, getApplicationContext());
+            presenter = new CitiesPresenterImpl(this);
             presenter.filterCity("");
             if (isPortrait()) {
                 hideFragment(mapFragment);

@@ -1,7 +1,5 @@
 package eva.interview.backbase.cities;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
@@ -18,12 +16,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import eva.interview.backbase.util.asset.AssetRetriever;
+
 public class CitiesModelImpl implements Cities.Model {
 
     private static final String CITIES_FILE = "cities.json";
 
     private Cities.Presenter presenter;
-    private Context context;
     private Handler handler;
     private TreeMap<String, City> cities;
 
@@ -31,9 +30,11 @@ public class CitiesModelImpl implements Cities.Model {
 
     private Future currentQuery;
 
-    public CitiesModelImpl(@NonNull Cities.Presenter presenter, @NonNull Context context) {
+    private AssetRetriever assetRetriever;
+
+    public CitiesModelImpl(@NonNull Cities.Presenter presenter, AssetRetriever assetRetriever) {
         this.presenter = presenter;
-        this.context = context;
+        this.assetRetriever = assetRetriever;
         searchThread = Executors.newSingleThreadExecutor();
     }
 
@@ -74,7 +75,7 @@ public class CitiesModelImpl implements Cities.Model {
 
     private TreeMap<String, City> loadCitiesFromAssets() {
         try {
-            InputStream file = context.getAssets().open(CITIES_FILE);
+            InputStream file = assetRetriever.retrieveFromAssetsAsStream(CITIES_FILE);
             JsonReader jsonReader = new JsonReader(new InputStreamReader(file));
             TreeMap<String, City> treeMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             jsonReader.beginArray();

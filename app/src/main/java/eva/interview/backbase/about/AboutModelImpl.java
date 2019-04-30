@@ -1,16 +1,12 @@
 package eva.interview.backbase.about;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
+import eva.interview.backbase.util.asset.AssetRetriever;
 
 /**
  * Created by Backbase R&D B.V on 28/06/2018.
@@ -20,17 +16,17 @@ public class AboutModelImpl implements About.Model {
 
     private static final String TAG = AboutModelImpl.class.getSimpleName();
     private final About.Presenter presenter;
-    private final WeakReference<Context> context;
     private static final String FILE_NAME = "aboutInfo.json";
+    private AssetRetriever assetRetriever;
 
-    public AboutModelImpl(@NonNull About.Presenter presenter, @NonNull Context context){
+    public AboutModelImpl(@NonNull About.Presenter presenter, @NonNull AssetRetriever assetRetriever){
         this.presenter = presenter;
-        this.context = new WeakReference<>(context);
+        this.assetRetriever = assetRetriever;
     }
 
     @Override
     public void getAboutInfo() {
-        String aboutInfoJson = getAboutInfoFromAssets();
+        String aboutInfoJson = assetRetriever.retrieveFromAssetsAsString(FILE_NAME);
 
         if(aboutInfoJson != null && !aboutInfoJson.isEmpty()){
     		AboutInfo aboutInfo = parseAboutInfo(aboutInfoJson);
@@ -59,21 +55,4 @@ public class AboutModelImpl implements About.Model {
         return aboutInfo;
     }
 
-    private String getAboutInfoFromAssets() {
-
-        if(context.get() != null){
-            try{
-                AssetManager manager = context.get().getAssets();
-                InputStream file = manager.open(FILE_NAME);
-                byte[] formArray = new byte[file.available()];
-                file.read(formArray);
-                file.close();
-                return new String(formArray);
-            }catch (IOException ex){
-                Log.e(TAG, ex.getLocalizedMessage(), ex);
-            }
-        }
-
-        return null;
-    }
 }

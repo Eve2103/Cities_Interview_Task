@@ -1,8 +1,8 @@
 package eva.interview.backbase.cities;
 
-import android.content.Context;
-
 import java.util.List;
+
+import eva.interview.backbase.util.asset.AssetRetriever;
 
 public class CitiesPresenterImpl implements Cities.Presenter {
 
@@ -10,9 +10,9 @@ public class CitiesPresenterImpl implements Cities.Presenter {
     private Cities.Model model;
     private City selectedCity;
 
-    public CitiesPresenterImpl(Cities.View view, Context context) {
+    public CitiesPresenterImpl(Cities.View view) {
         this.view = view;
-        this.model = new CitiesModelImpl(this, context);
+        this.model = new CitiesModelImpl(this, AssetRetriever.getInstance());
     }
 
     @Override
