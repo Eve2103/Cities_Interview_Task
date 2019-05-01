@@ -1,6 +1,5 @@
 package eva.interview.backbase.cities;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +21,6 @@ public class CitiesModelImpl implements Cities.Model {
     private static final String CITIES_FILE = "cities.json";
 
     private Cities.Presenter presenter;
-    private Handler handler;
     private TreeMap<String, City> cities;
 
     private ExecutorService searchThread;
@@ -41,15 +38,18 @@ public class CitiesModelImpl implements Cities.Model {
     @Override
     public void filterCities(final String name) {
         presenter.onLoading();
-        handler = new Handler();
-        if (cities == null){
+        if (cities == null) {
             searchThread.execute(new Runnable() {
                 @Override
                 public void run() {
                     cities = loadCitiesFromAssets();
-                    post(new ArrayList<>(cities.values()));
+                    if (name == null || name.isEmpty())
+                        presenter.onCitiesLoaded(new ArrayList<>(cities.values()));
+                    else
+                        filter(name);
                 }
             });
+            return;
         }
 
         if (currentQuery != null)
@@ -58,14 +58,18 @@ public class CitiesModelImpl implements Cities.Model {
         currentQuery = searchThread.submit(new Runnable() {
             @Override
             public void run() {
-                if (name == null || name.isEmpty()) {
-                    post(new ArrayList<>(cities.values()));
-                    return;
-                }
-                char lastNextChar = ++name.toCharArray()[name.length() - 1];
-                post(new ArrayList<>(cities.subMap(name, name.substring(0, name.length() - 1) + lastNextChar).values()));
-            }
+                filter(name);
+             }
         });
+    }
+
+    private void filter(String name){
+        if (name == null || name.isEmpty()) {
+            presenter.onCitiesLoaded(new ArrayList<>(cities.values()));
+            return;
+        }
+        char lastNextChar = ++name.toCharArray()[name.length() - 1];
+        presenter.onCitiesLoaded(new ArrayList<>(cities.subMap(name, name.substring(0, name.length() - 1) + lastNextChar).values()));
     }
 
     @Override
@@ -91,15 +95,4 @@ public class CitiesModelImpl implements Cities.Model {
             return null; //TODO
         }
     }
-
-    private void post(final List<City> cities) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                presenter.onCitiesLoaded(cities);
-            }
-        });
-    }
-
-
 }

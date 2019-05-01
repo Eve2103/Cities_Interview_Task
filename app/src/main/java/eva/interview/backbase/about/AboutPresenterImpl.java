@@ -1,7 +1,5 @@
 package eva.interview.backbase.about;
 
-import android.os.Handler;
-
 import java.lang.ref.WeakReference;
 
 import eva.interview.backbase.util.asset.AssetRetriever;
@@ -15,7 +13,7 @@ public class AboutPresenterImpl implements About.Presenter {
     private final WeakReference<About.View> aboutView;
     private final AboutModelImpl aboutModel;
 
-    public AboutPresenterImpl(About.View view){
+    public AboutPresenterImpl(About.View view) {
         this.aboutView = new WeakReference<>(view);
         this.aboutModel = new AboutModelImpl(this, AssetRetriever.getInstance());
     }
@@ -25,20 +23,14 @@ public class AboutPresenterImpl implements About.Presenter {
         About.View aboutViewImpl = aboutView.get();
 
         aboutViewImpl.showProgress();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                aboutModel.getAboutInfo();
-            }
-        }, 1000);
+        aboutModel.getAboutInfo();
     }
 
     @Override
     public void onSuccess(AboutInfo aboutInfo) {
         About.View aboutViewImpl = aboutView.get();
 
-        if(aboutViewImpl != null){
+        if (aboutViewImpl != null) {
             aboutViewImpl.hideProgress();
             aboutViewImpl.setCompanyName(aboutInfo.getCompanyName());
             aboutViewImpl.setCompanyAddress(aboutInfo.getCompanyAddress());
@@ -52,7 +44,7 @@ public class AboutPresenterImpl implements About.Presenter {
     @Override
     public void onFail() {
         About.View aboutViewImpl = aboutView.get();
-        if (aboutViewImpl != null){
+        if (aboutViewImpl != null) {
             aboutViewImpl.hideProgress();
             aboutViewImpl.showError();
         }

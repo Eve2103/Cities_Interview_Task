@@ -84,8 +84,13 @@ public class CitiesActivity extends AppCompatActivity implements Cities.View {
     }
 
     @Override
-    public void showCities(List<City> cities) {
-        listFragment.showList(cities);
+    public void showCities(final List<City> cities) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                listFragment.showList(cities);
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package eva.interview.backbase.about;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Backbase R&D B.V on 28/06/2018.
  * DTO representing aboutInfo object
@@ -7,10 +9,15 @@ package eva.interview.backbase.about;
 
 public class AboutInfo {
 
+    @SerializedName("companyName")
     private String companyName;
+    @SerializedName("companyAddress")
     private String companyAddress;
+    @SerializedName("postalCode")
     private String companyPostal;
+    @SerializedName("city")
     private String companyCity;
+    @SerializedName("details")
     private String aboutInfo;
 
     public String getCompanyName() {
